@@ -59,4 +59,3 @@ while True:
                 encode_name = f"{len(name) :< {HEADER_LENGTH}}".encode("utf-8") + name
                 encode_content = f"{len(message) :< {HEADER_LENGTH}}".encode("utf-8") + message
                 socket_.send(encode_name + encode_content)
-        

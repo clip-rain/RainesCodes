@@ -50,14 +50,16 @@ while True:
             continue
         message = receive_message(current_client)
         if not message:
+            sockets_list.remove(notified_socket)
+            del name_map[notified_socket]
             continue
         message = message.encode('utf-8')
+        name = name_map[current_client]
+        print(f"{name} > {message}")
+        name = name.encode('utf-8')
+        encode_name = f"{len(name) :< {HEADER_LENGTH}}".encode("utf-8") + name
+        encode_content = f"{len(message) :< {HEADER_LENGTH}}".encode("utf-8") + message
         for socket_ in sockets_list:
             if socket_ is not current_client and socket_ is not server_socket:
-                name = name_map[current_client]
-                print(f"{name} > {message}")
-                name = name.encode('utf-8')
-                encode_name = f"{len(name) :< {HEADER_LENGTH}}".encode("utf-8") + name
-                encode_content = f"{len(message) :< {HEADER_LENGTH}}".encode("utf-8") + message
                 socket_.send(encode_name + encode_content)
 

@@ -63,7 +63,9 @@ class ChatClient:
         while True:
             my_input = input(f"{self.username} > ")
             self._send_message_to_server(my_input)
+            print(12)
             self._receive_thread()
+            print(34)
 
     def _receive_thread(self):
         messages = self.receive_messages()
