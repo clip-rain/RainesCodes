@@ -88,9 +88,7 @@ class ChatClient:
         :return:
         '''
         last_line = self._my_input.get_last_line()
-        # print('\r\033[K')
-        if messages:
-            print('\r')
+        print('\r\033[K', end='')
         for message in messages:
             print(message, end='\r\n')
             # print("get message from")
