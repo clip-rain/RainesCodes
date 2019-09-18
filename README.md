@@ -1,2 +1,4 @@
 # RainesCodes
-The codes written by myself
+The codes and documents written by myself.
+
+
