@@ -1,7 +1,7 @@
 We have two way to customize the binding of JAXB. The detail can be found in this page [Customize JAXB](https://docs.oracle.com/javase/tutorial/jaxb/intro/custom.html).
 
 - Internal Binding <br/>
-    - 
+    - put the binding tag in the schema file directly.
 
 - External Binding
     - [Note that this customization is per namespace](https://javaee.github.io/jaxb-v2/doc/user-guide/ch03.html#customization-of-schema-compilation-customizing-java-packages) . That is, even if your schema is split into multiple schema documents, you cannot put them into different packages if they are all in the same namespace.
@@ -34,7 +34,10 @@ We have two way to customize the binding of JAXB. The detail can be found in thi
   <img src="../../img/changeTypeInJaxb.png" height="400">
   <br>
   ***There are three ways I can try to reach this. Keep in mind that we need to add the complexType into the node attribute, if we use \<javaType> or \<class> to do this.
-  If the matched node is not complexType, we would encounter this kind error ` Outer class String may not subclass from inner class: String`***
+  If the matched node is not complexType, we would encounter these kind errors: <br>
+  `java.lang.IllegalArgumentException: Illegal class inheritance loop.  Outer class String may not subclass from inner class: String`<br>
+  `[ant:xjc] [ERROR] compiler was unable to honor this class customization. It is attached to a wrong place, or its inconsistent with other bindings.`<br>
+  `[ant:xjc] [ERROR] compiler was unable to honor this javaType customization. It is attached to a wrong place, or its inconsistent with other bindings.`***
   - Use \<jxb:class>, below is the binding code. Here, we need match the complexType.
     ``` xml
     <jxb:bindings schemaLocation="../FareSearchRQ.xsd" node="/xs:schema">
