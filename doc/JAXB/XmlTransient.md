@@ -1,4 +1,4 @@
-### 改变Marshal和Unmarshal的行为
+### 通过注解@XmlTransient改变Marshal的行为
 背景：通过JAXB技术，使XML转成对象，或者使对象转成XML的过程，我们会有抹去一些字段映射的需求。
 
 案例：有下面类型定义。其中我们想将Customer实例转成XML文档，其中Customer,Address,PhoneNumber都有id这个字段。我希望转换的结果中不包含id。
@@ -64,8 +64,8 @@ public class PhoneNumber extends Base {
 - a JavaBean property
 - field
 - class
-<br/>
 
+# One
 用在不同的对象上效果是不一样。基于我们的需求，我们要用到的是第一种，也就是a JavaBean property。它表示的意思是阻止property映射到XML。
 当XmlTransient用在property上的时候，需要放在get方法上才能生效，所以我们将Base改造如下：
 ```
@@ -82,7 +82,8 @@ public class Base {
     }
 }
 ```
-
+这个时候我们就能得到没有id节点的XML文档。
+# Two
 其他：上面的案例是XmlTransient用在property上的场景。那么什么时候需要将其应用到class或者field上呢？
 - 首先讲讲class。
     ```
